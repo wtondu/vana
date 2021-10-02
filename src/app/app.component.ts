@@ -22,10 +22,19 @@ export class AppComponent {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) { }
+
+  cleanScores(): string {
+    let scores = this.golfForm.controls.scores.value;
+    scores = scores.replace(/,/g, ' ');
+    scores = scores.replace(/  +/g, ' ');
+    scores = scores.replace(/ /g, ', ');
+    this.golfForm.controls.scores.setValue(scores);
+    return scores;
+  }
 
   onSubmit(): void {
-    this.getHandicap(this.golfForm.controls.fName.value, this.golfForm.controls.scores.value).subscribe(
+    this.getHandicap(this.golfForm.controls.fName.value, this.cleanScores() ).subscribe(
       (response: any) => {
         this.handicapData = response;
       }
