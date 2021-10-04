@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/api-response.model';
 import { HandicapResponse } from '../models/handicap-response.model';
 
 @Injectable({

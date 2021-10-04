@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { HandicapResponse } from './models/handicap-response.model';
 import { HandicapService } from './services/handicap.service';
-import { ApiResponse } from './models/api-response.model';
 
 @Component({
   selector: 'app-root',
@@ -47,9 +45,6 @@ export class AppComponent {
       .subscribe(
         (response: HandicapResponse) => {
         this.handicapData = response;
-      },
-        (response: HttpErrorResponse) => {
-          console.error(response);
       });
   }
 
