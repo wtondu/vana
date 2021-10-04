@@ -1,26 +1,60 @@
 <div class="container">
-<form [formGroup]="golfForm" (ngSubmit)="onSubmit()">
-  <label for="fname"><span class="label">First Name</span></label>
-  <input id="fname" formControlName="fName" type="text" required="true" [attr.maxLength]="50" placeholder="First Name">
+  <form [formGroup]="golfForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="fname" class="label">First Name</label>
+      <input
+        id="fname"
+        formControlName="fName"
+        type="text"
+        required="true"
+        [attr.maxLength]="50"
+        placeholder="First Name"
+      />
+    </div>
+    <div
+      *ngIf="
+        golfForm.controls['fName'].invalid && golfForm.controls['fName'].touched
+      "
+      class="alert"
+    >
+      <div *ngIf="golfForm.controls['fName'].errors.required">
+        First Name is required.
+      </div>
+    </div>
 
-  <label for="score"><span class="label">Scores</span></label>
-  <input id="score" formControlName="scores" type="text" required="true" [attr.maxLength]="100" placeholder="100, 102, 95 ...">
+    <div class="form-group">
+      <label for="score">Scores</label>
+      <input
+        id="score"
+        formControlName="scores"
+        type="text"
+        required="true"
+        [attr.maxLength]="100"
+        placeholder="100, 102, 95, ..."
+        (keypress)="keyPressValidation($event)"
+      />
+    </div>
+    <div
+      *ngIf="
+        golfForm.controls['scores'].invalid &&
+        golfForm.controls['scores'].touched
+      "
+      class="alert"
+    >
+      <div *ngIf="golfForm.controls['scores'].errors.required">
+        Scores are required.
+      </div>
+    </div>
 
-  <button type="submit" [disabled]="!golfForm.valid">Calculate Handicap</button>
-</form>
+    <button type="submit" [disabled]="!golfForm.valid">
+      Calculate Handicap
+    </button>
+  </form>
 
-<div class="results" *ngIf="handicapData">
-  <div>
-    Golfer: {{savedName}}
+  <div class="results" *ngIf="handicapData">
+    <div>Golfer: {{ savedName }}</div>
+    <div>Scores: {{ savedScores }}</div>
+    <div>Average: {{ handicapData.average }}</div>
+    <div>Handicap: {{ handicapData.handicap }}</div>
   </div>
-  <div>
-    Scores: {{savedScores}}
-  </div>
-  <div>
-    Average: {{handicapData.average}}
-  </div>
-  <div>
-    Handicap: {{handicapData.handicap}}
-  </div>
-</div>
 </div>
